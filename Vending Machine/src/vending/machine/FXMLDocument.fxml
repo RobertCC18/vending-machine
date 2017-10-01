@@ -15,9 +15,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="525.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="vending.machine.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vending.machine.FXMLDocumentController">
     <children>
-      <GridPane layoutX="202.0" layoutY="95.0" prefHeight="206.0" prefWidth="316.0">
+      <GridPane layoutX="206.0" layoutY="117.0" prefHeight="200.0" prefWidth="319.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,12 +40,12 @@
             </Polygon>
             <Circle fx:id="circle" fill="DODGERBLUE" onMouseClicked="#oncircleclick" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
             <Arc fx:id="arc" fill="DODGERBLUE" length="270.0" onMouseClicked="#onarcclick" radiusX="37.0" radiusY="35.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="\$0.25">
+            <Label fx:id="rectval" text="\$0.25">
                <GridPane.margin>
                   <Insets left="80.0" />
                </GridPane.margin>
             </Label>
-            <Label layoutX="90.0" layoutY="53.0" text="\$0.50" GridPane.columnIndex="1">
+            <Label fx:id="trival" layoutX="90.0" layoutY="53.0" text="\$0.50" GridPane.columnIndex="1">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -53,7 +53,7 @@
                   <Insets left="80.0" />
                </padding>
             </Label>
-            <Label layoutX="168.0" layoutY="53.0" text="\$0.75" GridPane.rowIndex="1">
+            <Label fx:id="circval" layoutX="168.0" layoutY="53.0" text="\$0.75" GridPane.rowIndex="1">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -61,7 +61,7 @@
                   <Insets left="80.0" />
                </padding>
             </Label>
-            <Label layoutX="10.0" layoutY="156.0" text="\$1.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="arcval" layoutX="10.0" layoutY="156.0" text="\$1.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -76,33 +76,57 @@
             <Font name="Aharoni Bold" size="29.0" />
          </font>
       </Label>
-      <VBox layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0">
+      <VBox layoutX="14.0" layoutY="120.0" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label  prefHeight="17.0" prefWidth="129.0" text="Current Amount">
+            <Label prefHeight="17.0" prefWidth="129.0" text="Current Amount">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
             <Label fx:id="currentprice" prefHeight="17.0" prefWidth="122.0" text="\$0.00" textAlignment="CENTER" />
             <Label text="Change Due" />
-            <Label prefHeight="17.0" prefWidth="60.0" text="\$0.00" />
+            <Label fx:id="changeDue" prefHeight="17.0" prefWidth="60.0" text="\$0.00" />
          </children>
       </VBox>
-      <HBox layoutX="2.0" layoutY="370.0" prefHeight="70.0" prefWidth="349.0">
+      <HBox layoutX="114.0" layoutY="405.0" prefHeight="70.0" prefWidth="349.0">
          <children>
-            <Label text="25" translateX="34.0" translateY="15.0">
+            <Label text="25" translateX="40.0" translateY="15.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Label>
-            <Circle fx:id="quater" fill="#1f93ff00" onMouseClicked="#onquaterclicked" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label layoutX="10.0" layoutY="10.0" text="10" translateX="34.0" translateY="15.0" />
+            <Circle fx:id="quater" fill="#1f93ff00" onMouseClicked="#onquaterclicked" radius="27.0" stroke="BLACK" strokeType="INSIDE" translateX="7.0" />
+            <Label layoutX="10.0" layoutY="10.0" text="10" translateX="32.0" translateY="15.0" />
             <Circle fx:id="dime" fill="#1f93ff00" layoutX="37.0" layoutY="37.0" onMouseClicked="#ondimeclicked" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label layoutX="77.0" layoutY="10.0" text="5" translateX="32.0" translateY="15.0" />
+            <Label layoutX="77.0" layoutY="10.0" text="5" translateX="30.0" translateY="15.0" />
             <Circle fx:id="nickle" fill="#1f93ff00" layoutX="91.0" layoutY="37.0" onMouseClicked="#onnickleclick" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
             <Label layoutX="144.0" layoutY="10.0" text="1" translateX="31.0" translateY="15.0" />
             <Circle fx:id="penny" fill="#1f93ff00" layoutX="145.0" layoutY="37.0" onMouseClicked="#onpennyclick" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </HBox>
+      <Label layoutX="188.0" layoutY="384.0" text="Insert Your Coins">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="rect_inven" layoutX="204.0" layoutY="107.0" text="5" />
+      <Label fx:id="tri_invin" layoutX="369.0" layoutY="109.0" text="7" />
+      <Label fx:id="circ_inven" layoutX="200.0" layoutY="318.0" text="9" />
+      <Label fx:id="arc_inven" layoutX="359.0" layoutY="318.0" text="12" />
+      <Label layoutX="220.0" layoutY="107.0" text="Remaining" />
+      <Label layoutX="382.0" layoutY="109.0" text="Remaining" />
+      <Label layoutX="220.0" layoutY="318.0" text="Remaining" />
+      <Label layoutX="382.0" layoutY="318.0" text="Remaining" />
+      <Label layoutX="33.0" layoutY="96.0" text="Currency">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="220.0" layoutY="69.0" text="Choose Your Items Below">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      
     </children>
 </AnchorPane>
