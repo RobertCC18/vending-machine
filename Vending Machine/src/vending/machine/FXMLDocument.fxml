@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Arc?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Polygon?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vending.machine.FXMLDocumentController">
@@ -27,19 +25,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" onMouseClicked="#onrectclick" stroke="BLACK" strokeType="INSIDE" width="63.0" />
-            <Polygon fx:id="poly" fill="#fff11f" onMouseClicked="#onpolyclick" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1">
-              <points>
-                <Double fx:value="-50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="0.0" />
-                <Double fx:value="-60.0" />
-              </points>
-            </Polygon>
-            <Circle fx:id="circle" fill="DODGERBLUE" onMouseClicked="#oncircleclick" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
-            <Arc fx:id="arc" fill="DODGERBLUE" length="270.0" onMouseClicked="#onarcclick" radiusX="37.0" radiusY="35.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+           
             <Label fx:id="rectval" text="\$0.25">
                <GridPane.margin>
                   <Insets left="80.0" />
@@ -61,14 +47,21 @@
                   <Insets left="80.0" />
                </padding>
             </Label>
-            <Label fx:id="arcval" layoutX="10.0" layoutY="156.0" text="\$1.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-            </Label>
+            
+            <ImageView fx:id="rect" fitHeight="68.0" fitWidth="73.0" onMouseClicked="#onrectclick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/images/cola.png" />
+               </image></ImageView>
+            <ImageView fx:id="tri" fitHeight="75.0" fitWidth="75.0" onMouseClicked="#onpolyclick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@assets/images/chips.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="circ" fitHeight="70.0" fitWidth="73.0" onMouseClicked="#oncircleclick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@assets/images/candy.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <Label layoutX="133.0" layoutY="14.0" prefHeight="27.0" prefWidth="259.0" text="Vending Machine" textAlignment="CENTER">
@@ -86,25 +79,15 @@
             <Label fx:id="currentprice" prefHeight="17.0" prefWidth="122.0" text="\$0.00" textAlignment="CENTER" />
             <Label text="Change Due" />
             <Label fx:id="changeDue" prefHeight="17.0" prefWidth="60.0" text="\$0.00" />
+            <Button fx:id="remove_money" mnemonicParsing="false" onMouseClicked="#return_money_click" text="Remove Money">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
-      <HBox layoutX="114.0" layoutY="405.0" prefHeight="70.0" prefWidth="349.0">
-         <children>
-            <Label text="25" translateX="40.0" translateY="15.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
-            <Circle fx:id="quater" fill="#1f93ff00" onMouseClicked="#onquaterclicked" radius="27.0" stroke="BLACK" strokeType="INSIDE" translateX="7.0" />
-            <Label layoutX="10.0" layoutY="10.0" text="10" translateX="32.0" translateY="15.0" />
-            <Circle fx:id="dime" fill="#1f93ff00" layoutX="37.0" layoutY="37.0" onMouseClicked="#ondimeclicked" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label layoutX="77.0" layoutY="10.0" text="5" translateX="30.0" translateY="15.0" />
-            <Circle fx:id="nickle" fill="#1f93ff00" layoutX="91.0" layoutY="37.0" onMouseClicked="#onnickleclick" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label layoutX="144.0" layoutY="10.0" text="1" translateX="31.0" translateY="15.0" />
-            <Circle fx:id="penny" fill="#1f93ff00" layoutX="145.0" layoutY="37.0" onMouseClicked="#onpennyclick" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
-         </children>
-      </HBox>
-      <Label layoutX="188.0" layoutY="384.0" text="Insert Your Coins">
+      <HBox fx:id="coin_return" layoutX="56.0" layoutY="405.0" prefHeight="70.0" prefWidth="349.0" />
+      <Label layoutX="188.0" layoutY="384.0" text="Coin Return">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -112,11 +95,11 @@
       <Label fx:id="rect_inven" layoutX="204.0" layoutY="107.0" text="5" />
       <Label fx:id="tri_invin" layoutX="369.0" layoutY="109.0" text="7" />
       <Label fx:id="circ_inven" layoutX="200.0" layoutY="318.0" text="9" />
-      <Label fx:id="arc_inven" layoutX="359.0" layoutY="318.0" text="12" />
-      <Label layoutX="220.0" layoutY="107.0" text="Remaining" />
-      <Label layoutX="382.0" layoutY="109.0" text="Remaining" />
-      <Label layoutX="220.0" layoutY="318.0" text="Remaining" />
-      <Label layoutX="382.0" layoutY="318.0" text="Remaining" />
+      <Label fx:id="arc_inven" layoutX="359.0" layoutY="318.0" text="12" visible="false" />
+      <Label layoutX="220.0" layoutY="107.0" text=" Colas Remaining" />
+      <Label layoutX="382.0" layoutY="109.0" text="Chips Remaining" />
+      <Label layoutX="220.0" layoutY="318.0" text="Candies Remaining" />
+      <Label layoutX="382.0" layoutY="318.0" text="Remaining" visible="false" />
       <Label layoutX="33.0" layoutY="96.0" text="Currency">
          <font>
             <Font name="System Bold" size="15.0" />
