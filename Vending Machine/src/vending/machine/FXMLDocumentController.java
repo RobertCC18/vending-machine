@@ -83,13 +83,13 @@ public class FXMLDocumentController implements Initializable {
                     if (quarter) {
                      money = money + 0.25;
                     }
-                    if (dime) {
+                    else if (dime) {
                      money = money + 0.10;
                     }
-                    if (nickle) {
+                   else if (nickle) {
                      money = money + 0.05;
                     }
-                    if (pennyo) {
+                   else if (pennyo) {
                         ImageView imv = new ImageView();
                         imv.setFitHeight(100);
                         imv.setFitWidth(100);
@@ -97,6 +97,9 @@ public class FXMLDocumentController implements Initializable {
                         imv.setImage(penny);
                      coin_return.getChildren().add(imv);
                     }
+                   else {
+                   incompat_currency(coin);
+                   }
                 }
             }
              currentprice.setText("$" + df.format(money));
@@ -145,10 +148,21 @@ public class FXMLDocumentController implements Initializable {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("file:src/vending/machine/assets/images/vending-512.png"));
             alert.showAndWait();
-        changeDue.setText("$0.00");
-        money = 0.00;
+        changeDue.setText("$0.00"); // reset vending machine after purchase
+        money = 0.00; // set money back to 0
      
     }
+    
+    private void incompat_currency(String coin) { // displays incompatable coin name
+        Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Vending Information");
+            alert.setHeaderText("Incompatable Currency Dectected");
+            alert.setContentText("You entered Incompatible Coin Name " + coin);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:src/vending/machine/assets/images/vending-512.png"));
+            alert.showAndWait();
+    }
+    
     private void inventory_out() {
         Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Vending Information");
