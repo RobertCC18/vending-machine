@@ -6,11 +6,13 @@
 package vending.machine;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -26,6 +28,7 @@ public class VendingMachine extends Application {
         stage.getIcons().add(new Image("file:src/vending/machine/assets/images/vending-512.png"));
         stage.setScene(scene);
         stage.show();
+        
     }
 
     /**

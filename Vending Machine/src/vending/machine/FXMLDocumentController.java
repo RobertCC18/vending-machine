@@ -64,7 +64,7 @@ public class FXMLDocumentController implements Initializable {
     double triValue = 0.50;
     double circValue = 0.75;
  
- private void currency_input() { // this creates the currency input box displayed at the program start
+  public void currency_input() { // this creates the currency input box displayed at the program start
          TextInputDialog dialog = new TextInputDialog("Coins");
             dialog.setTitle("Insert Coin");
             dialog.setHeaderText("Please Insert Your Coins");
@@ -108,10 +108,10 @@ public class FXMLDocumentController implements Initializable {
     
     
     private void update_price() { // updates price after item purchase and coin input
-    double rect_price = rectValue - money;
+    double rect_price = rectValue - money; // compare product price against current money
     double tri_price = triValue - money;
     double circ_price = circValue - money;
-    if (rect_price <= 0.00) {
+    if (rect_price <= 0.00) { // does not allow negative numbers
      rect_price = 0.00;
     }
     if (circ_price <= 0.00) {
@@ -120,7 +120,7 @@ public class FXMLDocumentController implements Initializable {
     if (tri_price <= 0.00) {
      tri_price = 0.00;
     }
-    rectval.setText("$" + df.format(rect_price));
+    rectval.setText("$" + df.format(rect_price)); // update item price
     trival.setText("$" + df.format(tri_price));
     circval.setText("$" + df.format(circ_price));
    
@@ -163,7 +163,7 @@ public class FXMLDocumentController implements Initializable {
             alert.showAndWait();
     }
     
-    private void inventory_out() {
+    private void inventory_out() { // displays the out of stock message
         Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Vending Information");
             alert.setHeaderText("Out Of Stock");
@@ -172,7 +172,7 @@ public class FXMLDocumentController implements Initializable {
             stage.getIcons().add(new Image("file:src/vending/machine/assets/images/vending-512.png"));
             alert.showAndWait();
     }
-    private void purchase_thank() {
+    private void purchase_thank() { // purchase thank you message
         Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Vending Information");
             alert.setHeaderText("Thank You");
@@ -180,12 +180,22 @@ public class FXMLDocumentController implements Initializable {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("file:src/vending/machine/assets/images/vending-512.png"));
             alert.showAndWait();
-             if (money <= 0 ){
-            currency_input();
-            coin_return.getChildren().clear();
+             if (money <= 0 ){ // check for money
+            currency_input(); // show coin insert
+            coin_return.getChildren().clear(); // remove pennies from coin return
         }
     }
     
+    private void exact_change() { // purchase thank you message
+        Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Vending Information");
+            alert.setHeaderText("Exact Change Required");
+            alert.setContentText("Please Enter Exact Change");
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:src/vending/machine/assets/images/vending-512.png"));
+            alert.showAndWait();
+            currency_input(); // show coin insert
+    }
      private void show_change() { //TODO Finish code to show change icons
     int change = (int)(Math.ceil(money*100));
     int quarters = Math.round((int)change/25);
@@ -231,7 +241,7 @@ public class FXMLDocumentController implements Initializable {
     }
     
      @FXML
-    private void return_money_click(MouseEvent event) {
+    private void return_money_click(MouseEvent event) { // Return the money inputed 
         Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Vending Information");
             alert.setHeaderText("Money Returned");
@@ -246,35 +256,30 @@ public class FXMLDocumentController implements Initializable {
     }
      
     @FXML
-    private void onrectclick(MouseEvent event) {
-        int inventory = Integer.parseInt(rect_inven.getText());
-        inventory = inventory - 1;
-        String ui = Integer.toString(inventory);
-         if (inventory <= -1) {
+    private void onrectclick(MouseEvent event) { // cola product click
+        int inventory = Integer.parseInt(rect_inven.getText()); // get the current inventory
+        inventory = inventory - 1; // remove one
+        String ui = Integer.toString(inventory); 
+         if (inventory <= -1) { // check for empty stock
                     inventory_out();
                     ui = "0";
                 }
          else {
-        if (money >= rectValue) {
+        if (money == rectValue) {
         money = money - rectValue;
-        
-            if (money != 0.00) {
-                change_due();
-            }
-        
                
         currentprice.setText("$" + df.format(money));
-        rect_inven.setText(ui);
-        purchase_thank();
+        rect_inven.setText(ui); // update inventory
+        purchase_thank(); // purchase thank
         update_price();
         }
         else {
-            nc_error();
+            exact_change(); // if exact change is not provided
         }
       }
     }
     @FXML
-    private void onpolyclick(MouseEvent event) {
+    private void onpolyclick(MouseEvent event) { // chips product click (same as cola product)
         int inventory = Integer.parseInt(tri_invin.getText());
         inventory = inventory - 1;
         String ui = Integer.toString(inventory);
@@ -301,7 +306,7 @@ public class FXMLDocumentController implements Initializable {
       }
     }
     @FXML
-    private void oncircleclick(MouseEvent event) {
+    private void oncircleclick(MouseEvent event) { // candy product click
         int inventory = Integer.parseInt(circ_inven.getText());
         inventory = inventory - 1;
         String ui = Integer.toString(inventory);
@@ -330,11 +335,12 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (money <= 0 ){
+        if (money <= 0 ){ // check for no money on init
             currency_input();
         }
-        currentprice.setText("$" + df.format(money));
-        update_price();
+        currentprice.setText("$" + df.format(money)); // set price
+        update_price(); // update product price
     }    
     
+
 }
